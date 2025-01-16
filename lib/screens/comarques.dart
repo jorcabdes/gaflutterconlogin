@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gaflutter/screens/counties.dart';
+import 'package:go_router/go_router.dart';
 
 class ComarquesWidget extends StatelessWidget {
   final String imagePath; // Ruta de la imagen
@@ -22,10 +23,15 @@ class ComarquesWidget extends StatelessWidget {
           fit: BoxFit.cover,
         ),
         SizedBox(height: 8),
-        Text(
+        TextButton(
+                  onPressed: () {
+                    context.push("/info1");
+                  },
+        child: Text(
           comarquesName,
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
+        )
       ],
     );
   }

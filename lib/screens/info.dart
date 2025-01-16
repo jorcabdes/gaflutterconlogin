@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gaflutter/screens/counties.dart';
+import 'package:go_router/go_router.dart';
 
 class InfoWidget extends StatelessWidget {
   final String imagePath; // Ruta de la imagen
@@ -41,6 +42,12 @@ class InfoWidget extends StatelessWidget {
           descrip,
           style: TextStyle(fontSize: 10),
         ),
+        TextButton(
+                  onPressed: () {
+                    context.push("/info2");
+                  },
+                  child: const Text("Tiempo"),
+                ),
       ],
     );
   }
@@ -57,7 +64,7 @@ class InfoComarca1Screen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         ),
-      body: InfoWidget(
+      body:InfoWidget(
         comarquesName: provincies["provincies"][0]["comarques"][0]["comarca"],
         imagePath: provincies["provincies"][0]["comarques"][0]["img"],
         capital: "Capital: " + provincies["provincies"][0]["comarques"][0]["capital"],

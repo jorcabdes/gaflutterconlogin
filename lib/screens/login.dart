@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -11,7 +12,14 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+      home:Scaffold(
+      appBar: AppBar(
+              title: const Text(
+                'Comarcas',
+              ),
+              centerTitle: false, // Esto centrará el título en la AppBar
+          ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -42,9 +50,28 @@ class _LoginPageState extends State<LoginPage> {
                 labelText: 'Password',
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    context.push("/provincias");
+                  },
+                  child: const Text("Iniciar"),
+                ),
+                const SizedBox(width: 16),
+                TextButton(
+                  onPressed: () {
+                    context.push("/provincias");
+                  },
+                  child: const Text("Registro"),
+                ),
+              ],
+            ),
           ],
         ),
       ),
+    )
     );
   }
 }

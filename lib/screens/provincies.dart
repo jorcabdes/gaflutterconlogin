@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gaflutter/screens/counties.dart';
+import 'package:go_router/go_router.dart';
 
 class ProvinceWidget extends StatelessWidget {
   final String imagePath; // Ruta de la imagen
@@ -22,10 +23,15 @@ class ProvinceWidget extends StatelessWidget {
           fit: BoxFit.cover,
         ),
         SizedBox(height: 8),
-        Text(
+        TextButton(
+                  onPressed: () {
+                    context.push("/comarcas");
+                  },
+        child: Text(
           provinceName,
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
+        )
       ],
     );
   }

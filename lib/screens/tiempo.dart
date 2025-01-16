@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gaflutter/screens/counties.dart';
 
-class InfoWidget extends StatelessWidget {
+class InfoWidget2 extends StatelessWidget {
   final String imagePath; // Ruta de la imagen
   final String comarquesName; // Nombre de la provincia
   final String poblacion;
   final String latitud;
   final String longitud;
 
-  const InfoWidget({
+  const InfoWidget2({
     Key? key,
     required this.imagePath,
     required this.comarquesName,
@@ -64,7 +64,7 @@ class InfoComarca2Screen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         ),
-      body: InfoWidget(
+      body: InfoWidget2(
         comarquesName: provincies["provincies"][0]["comarques"][0]["comarca"],
         imagePath: 'assets/img/sun.png',
         poblacion: "Población: " + provincies["provincies"][0]["comarques"][0]["poblacio"],
