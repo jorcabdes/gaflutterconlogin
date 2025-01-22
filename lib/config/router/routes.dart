@@ -15,18 +15,29 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       name: 'comarcas',
-      path: '/comarcas',
-      builder: (context, state) => const ComarquesScreen(),
+      path: '/comarcas/:pro',
+      builder: (context, state) {
+        final String pro = state.pathParameters['pro']!;
+        return ComarquesScreen(pro: pro,);
+      },
     ),
     GoRoute(
       name: 'info1',
-      path: '/info1',
-      builder: (context, state) => const InfoComarca1Screen(),
+      path: '/info1/:pro/:comar',
+      builder: (context, state) {
+        final String pro = state.pathParameters['pro']!;
+        final String comar = state.pathParameters['comar']!;
+        return InfoComarca1Screen(pro: pro,comar:comar);
+      }
     ),
     GoRoute(
       name: 'info2',
-      path: '/info2',
-      builder: (context, state) => const InfoComarca2Screen(),
+      path: '/info2/:pro/:comar',
+      builder: (context, state) {
+        final String pro = state.pathParameters['pro']!;
+        final String comar = state.pathParameters['comar']!;
+        return InfoComarca2Screen(pro: pro,comar:comar);
+      }
     ),
   ],
 );

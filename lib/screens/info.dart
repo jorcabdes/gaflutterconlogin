@@ -7,13 +7,17 @@ class InfoWidget extends StatelessWidget {
   final String comarquesName; // Nombre de la provincia
   final String capital;
   final String descrip;
+  final int indicepro;
+  final int indicecomar;
 
   const InfoWidget({
     Key? key,
     required this.imagePath,
     required this.comarquesName,
     required this.capital,
-    required this.descrip
+    required this.descrip,
+    required this.indicepro,
+    required this.indicecomar
     
   }) : super(key: key);
 
@@ -44,7 +48,7 @@ class InfoWidget extends StatelessWidget {
         ),
         TextButton(
                   onPressed: () {
-                    context.push("/info2");
+                    context.push("/info2/$indicepro/$indicecomar");
                   },
                   child: const Text("Tiempo"),
                 ),
@@ -55,8 +59,13 @@ class InfoWidget extends StatelessWidget {
 
 class InfoComarca1Screen extends StatelessWidget {
  
+  final String pro;
+  final String comar;
+
   const InfoComarca1Screen({
     Key? key,
+    required this.pro,
+    required this.comar
   }) : super(key: key);
 
   @override
@@ -65,10 +74,12 @@ class InfoComarca1Screen extends StatelessWidget {
       appBar: AppBar(
         ),
       body:InfoWidget(
-        comarquesName: provincies["provincies"][0]["comarques"][0]["comarca"],
-        imagePath: provincies["provincies"][0]["comarques"][0]["img"],
-        capital: "Capital: " + provincies["provincies"][0]["comarques"][0]["capital"],
-        descrip: provincies["provincies"][0]["comarques"][0]["desc"],
+        comarquesName: provincies["provincies"][int.parse(pro)]["comarques"][int.parse(comar)]["comarca"],
+        imagePath: provincies["provincies"][int.parse(pro)]["comarques"][int.parse(comar)]["img"],
+        capital: "Capital: " + provincies["provincies"][int.parse(pro)]["comarques"][int.parse(comar)]["capital"],
+        descrip: provincies["provincies"][int.parse(pro)]["comarques"][int.parse(comar)]["desc"],
+        indicepro: int.parse(pro),
+        indicecomar: int.parse(comar),
       ),
     );
   }

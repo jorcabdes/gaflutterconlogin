@@ -5,11 +5,13 @@ import 'package:go_router/go_router.dart';
 class ProvinceWidget extends StatelessWidget {
   final String imagePath; // Ruta de la imagen
   final String provinceName; // Nombre de la provincia
+  final int indece;
 
   const ProvinceWidget({
     Key? key,
     required this.imagePath,
     required this.provinceName,
+    required this.indece
   }) : super(key: key);
 
   @override
@@ -25,7 +27,7 @@ class ProvinceWidget extends StatelessWidget {
         SizedBox(height: 8),
         TextButton(
                   onPressed: () {
-                    context.push("/comarcas");
+                    context.push("/comarcas/$indece");
                   },
         child: Text(
           provinceName,
@@ -60,6 +62,7 @@ class ProvinciasScreen extends StatelessWidget {
           return ProvinceWidget(
             provinceName: provincia["provincia"],
             imagePath: provincia["img"],
+            indece: index,
           );
         },
       ),

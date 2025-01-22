@@ -5,11 +5,15 @@ import 'package:go_router/go_router.dart';
 class ComarquesWidget extends StatelessWidget {
   final String imagePath; // Ruta de la imagen
   final String comarquesName; // Nombre de la provincia
+  final int indice;
+  final int indicepro;
 
   const ComarquesWidget({
     Key? key,
     required this.imagePath,
     required this.comarquesName,
+    required this.indice,
+    required this.indicepro
   }) : super(key: key);
 
   @override
@@ -25,7 +29,7 @@ class ComarquesWidget extends StatelessWidget {
         SizedBox(height: 8),
         TextButton(
                   onPressed: () {
-                    context.push("/info1");
+                    context.push("/info1/$indicepro/$indice");
                   },
         child: Text(
           comarquesName,
@@ -39,8 +43,10 @@ class ComarquesWidget extends StatelessWidget {
 
 class ComarquesScreen extends StatelessWidget {
  
+  final String pro;
   const ComarquesScreen({
     Key? key,
+    required this.pro
   }) : super(key: key);
 
   @override
@@ -60,6 +66,8 @@ class ComarquesScreen extends StatelessWidget {
           return ComarquesWidget(
             comarquesName: comarques["comarca"],
             imagePath: comarques["img"],
+            indice: index,
+            indicepro: int.parse(this.pro),
           );
         },
       ),
