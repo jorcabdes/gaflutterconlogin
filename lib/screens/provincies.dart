@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gaflutter/screens/counties.dart';
 import 'package:go_router/go_router.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ProvinceWidget extends StatelessWidget {
   final String imagePath; // Ruta de la imagen
@@ -53,7 +54,23 @@ class ProvinciasScreen extends StatelessWidget {
             child: Text(
               'Provincias del País Valencià',
             ),
+
           ),
+          actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              context.push('/');
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.favorite),
+            onPressed:(){
+              context.push('/favoritas');
+            }
+            )
+        ],
         ),
       body: ListView.builder(
         itemCount: provincies["provincies"].length,

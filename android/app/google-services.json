@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "667032728557",
+    "firebase_url": "https://gaflutter-41bd1-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "gaflutter-41bd1",
+    "storage_bucket": "gaflutter-41bd1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:667032728557:android:d18006a510848ea5e6ede4",
+        "android_client_info": {
+          "package_name": "com.example.gaflutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "667032728557-d7tmfsucitk60kkgd4o4m461urd81cuq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAum2JkJPMFjYTquxFJh2ygoL5WFGptiBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "667032728557-d7tmfsucitk60kkgd4o4m461urd81cuq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "667032728557-u065ts6b4523jg411rphl8ucsf7vjfdd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gaflutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

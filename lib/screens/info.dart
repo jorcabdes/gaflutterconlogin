@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:gaflutter/blocs/tasks/tasks_bloc.dart';
+import 'package:gaflutter/blocs/tasks/tasks_event.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gaflutter/data/repositories/task_repository_impl.dart';
+import 'package:gaflutter/domain/entities/comarca.dart';
+import 'package:gaflutter/domain/repositories/comarca_repository.dart';
 import 'package:gaflutter/screens/counties.dart';
 import 'package:go_router/go_router.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class InfoWidget extends StatelessWidget {
   final String imagePath; // Ruta de la imagen
@@ -52,6 +60,21 @@ class InfoWidget extends StatelessWidget {
                   },
                   child: const Text("Tiempo"),
                 ),
+        TextButton(
+                  onPressed: () {
+                        final task = ComarcaEntity(
+                          uiduser: FirebaseAuth.instance.currentUser!.uid,
+                          imagePath: this.imagePath, // Ruta de la imagen
+                          comarquesName: this.comarquesName, // Nombre de la provincia
+                          capital: this.capital,
+                          descrip: this.descrip
+                        );
+                        context.read<TasksBloc>().add(AddTaskEvent(task));
+                        Navigator.of(context).pop(); // Vuelve al listado
+                      
+                  },
+                  child: const Text("Favorito"),
+                ),
       ],
     );
   }
@@ -73,6 +96,7 @@ class InfoComarca1Screen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         ),
+        
       body:InfoWidget(
         comarquesName: provincies["provincies"][int.parse(pro)]["comarques"][int.parse(comar)]["comarca"],
         imagePath: provincies["provincies"][int.parse(pro)]["comarques"][int.parse(comar)]["img"],

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gaflutter/screens/counties.dart';
 import 'package:go_router/go_router.dart';
 
+//FirebaseAuth.instance.currentUser.uid
+
 class ComarquesWidget extends StatelessWidget {
   final String imagePath; // Ruta de la imagen
   final String comarquesName; // Nombre de la provincia
@@ -30,11 +32,12 @@ class ComarquesWidget extends StatelessWidget {
         TextButton(
                   onPressed: () {
                     context.push("/info1/$indicepro/$indice");
-                  },
+                  },    
         child: Text(
           comarquesName,
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
+
         )
       ],
     );

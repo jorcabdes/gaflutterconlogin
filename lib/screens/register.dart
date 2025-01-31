@@ -2,31 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class RegistroPage extends StatefulWidget {
+  const RegistroPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegistroPageState createState() => _RegistroPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegistroPageState extends State<RegistroPage> {
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  Future<void> _login() async {
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
-      // Navegar a la pantalla principal
-      context.push("/provincias");
-      // Aquí puedes redirigir al usuario a otra pantalla
-    } catch (e) {
-      context.push("/registro");
-    }
+  Future<void> _register() async {
+  try {
+    UserCredential userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+    );
+    context.push('/');
+  } catch (e) {
+    context.push('/registro');
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                 Image.asset('assets/img/web-movil-02.png',width: 100,height: 200),
                 const SizedBox(height: 16.0),
                 Text(
-                  'Les comarques de la comunitat',
+                  'Les comarques de la comunitat Registro',
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ],
@@ -59,7 +58,6 @@ class _LoginPageState extends State<LoginPage> {
               decoration: const InputDecoration(
                 filled: true,
                 labelText: 'Username',
-                
               ),
               keyboardType: TextInputType.emailAddress,
             ),
@@ -78,22 +76,16 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 TextButton(
                   onPressed: () {
-                    _login();
+                    _register();
                   },
-                  child: const Text("Iniciar"),
+                  child: const Text("Registar"),
                 ),
                 const SizedBox(width: 16),
                 TextButton(
                   onPressed: () {
-                    context.push("/register");
+                    context.push("/");
                   },
-                  child: const Text("Registro"),
-                ),
-                TextButton(
-                  onPressed: () {
-                    context.push("/register");
-                  },
-                  child: const Text("Iniciar con Google"),
+                  child: const Text("Iniciar sesión"),
                 ),
               ],
             ),

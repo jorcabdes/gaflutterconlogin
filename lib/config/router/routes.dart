@@ -1,5 +1,7 @@
 import 'package:gaflutter/screens/screens.dart';
 import 'package:go_router/go_router.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gaflutter/screens/screens.dart';
 
 final GoRouter router = GoRouter(
   routes: [
@@ -7,6 +9,16 @@ final GoRouter router = GoRouter(
       name: 'login',
       path: '/', 
       builder: (context, state) => const LoginPage(),
+    ),
+    GoRoute(
+      name: 'register',
+      path: '/register', 
+      builder: (context, state) => const RegistroPage(),
+    ),
+    GoRoute(
+      name: 'favoritas',
+      path: '/favoritas',
+      builder: (context, state) => const TasksScreen(),
     ),
     GoRoute(
       name: 'provincias',
@@ -40,4 +52,17 @@ final GoRouter router = GoRouter(
       }
     ),
   ],
+  redirect: (context, state) {
+    final user = FirebaseAuth.instance.currentUser;
+    final currentPath = state.uri.path;
+    if (user != null && (currentPath == '/login' || currentPath == '/register')) {
+      return '/provincias';
+    }
+
+    // Si el usuario no está autenticado y no está intentando acceder al login o registro, redirige al login
+    if (user == null && currentPath != '/login' && currentPath != '/register') {
+     return('/');
+    }
+    return null; // No redirigir
+  },
 );
