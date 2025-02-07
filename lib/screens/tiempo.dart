@@ -9,8 +9,8 @@ class InfoWidget2 extends StatefulWidget {
   final String poblacion;
   final String latitud;
   final String longitud;
-  final int indicepro;
-  final int indicecomar;
+  //final int indicepro;
+  //final int indicecomar;
 
   const InfoWidget2({
     Key? key,
@@ -19,8 +19,8 @@ class InfoWidget2 extends StatefulWidget {
     required this.poblacion,
     required this.latitud,
     required this.longitud,
-    required this.indicepro,
-    required this.indicecomar
+    //required this.indicepro,
+    //required this.indicecomar
     
   });
   @override
@@ -33,7 +33,7 @@ class _WidgetClimaState extends State<InfoWidget2> {
   void initState() {
     super.initState();
     info = obteClima(longitud: double.parse(widget.longitud) ?? 0.0, latitud: double.parse(widget.latitud) ?? 0.0);
-    }
+  }
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -42,9 +42,7 @@ class _WidgetClimaState extends State<InfoWidget2> {
         if (snapshot.hasData) {
           // Una vegada es resol el Future, tindrem disponible
           // la informació necessària per construir el giny
-          String codi =
-              snapshot.data["current_weather"]["weathercode"].toString();
-
+          String codi = snapshot.data["current_weather"]["weathercode"].toString();
           return Column(
             children: [
               
@@ -79,30 +77,37 @@ class _WidgetClimaState extends State<InfoWidget2> {
 }
 class InfoComarca2Screen extends StatelessWidget {
  
-  final String pro;
   final String comar;
 
   const InfoComarca2Screen({
     Key? key,
-    required this.pro,
-    required this.comar
+    required this.comar,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        ),
-      body: InfoWidget2(
-        comarquesName: provincies["provincies"][int.parse(pro)]["comarques"][int.parse(comar)]["comarca"],
-        imagePath: 'assets/img/sun.png',
-        poblacion: "Población: " + provincies["provincies"][int.parse(pro)]["comarques"][int.parse(comar)]["poblacio"],
-        latitud: provincies["provincies"][int.parse(pro)]["comarques"][int.parse(comar)]["coordenades"][0].toString(),
-        longitud: provincies["provincies"][int.parse(pro)]["comarques"][int.parse(comar)]["coordenades"][1].toString(),
-        indicepro: int.parse(pro),
-        indicecomar: int.parse(comar),
-      ),
+    return FutureBuilder(
+      future: obtenirInfoComarca(comarca: comar),
+      builder: (BuildContext context, AsyncSnapshot snapshot){
+        if (snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(
+              ),
+            body: InfoWidget2(
+              comarquesName: snapshot.data["comarca"],
+              imagePath: 'assets/img/sun.png',
+              poblacion: snapshot.data["poblacio"],
+              latitud: snapshot.data["latitud"].toString(),
+              longitud: snapshot.data["longitud"].toString(),
+              //indicepro: int.parse(pro),
+              //indicecomar: int.parse(comar),
+            ),
+          );
+        }
+        return const CircularProgressIndicator();
+      }
     );
+
   }
 }
   Widget _obtenirIconaOratge(String value) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gaflutter/screens/counties.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gaflutter/peticions_http.dart';
 
 //FirebaseAuth.instance.currentUser.uid
 
@@ -8,14 +9,13 @@ class ComarquesWidget extends StatelessWidget {
   final String imagePath; // Ruta de la imagen
   final String comarquesName; // Nombre de la provincia
   final int indice;
-  final int indicepro;
+  //final int indicepro;
 
   const ComarquesWidget({
     Key? key,
     required this.imagePath,
     required this.comarquesName,
     required this.indice,
-    required this.indicepro
   }) : super(key: key);
 
   @override
@@ -31,7 +31,7 @@ class ComarquesWidget extends StatelessWidget {
         SizedBox(height: 8),
         TextButton(
                   onPressed: () {
-                    context.push("/info1/$indicepro/$indice");
+                    context.push("/info1/$comarquesName");
                   },    
         child: Text(
           comarquesName,
@@ -54,26 +54,35 @@ class ComarquesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          title: Center(
-            child: Text(
-              'Comarques de Valencia',
+    return FutureBuilder(
+      future: obtenirComarquesAmbImatge(provincia:this.pro),
+      builder: (BuildContext context, AsyncSnapshot snapshot){
+        if (snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(
+                title: Center(
+                  child: Text(
+                    'Comarques de Valencia',
+                  ),
+                ),
+              ),
+            body: ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, index) {
+                //final comarques = provincies["provincies"][0]["comarques"][index];
+                print(snapshot.data[index]);
+                return ComarquesWidget(
+                  comarquesName: snapshot.data[index]["nom"],
+                  imagePath: snapshot.data[index]["img"],
+                  indice: index,
+                  //indicepro: int.parse(this.pro),
+                );
+              },
             ),
-          ),
-        ),
-      body: ListView.builder(
-        itemCount: provincies["provincies"][0]["comarques"].length,
-        itemBuilder: (context, index) {
-          final comarques = provincies["provincies"][0]["comarques"][index];
-          return ComarquesWidget(
-            comarquesName: comarques["comarca"],
-            imagePath: comarques["img"],
-            indice: index,
-            indicepro: int.parse(this.pro),
           );
-        },
-      ),
+        }
+        return const CircularProgressIndicator();
+      }
     );
   }
 }

@@ -8,6 +8,7 @@ import 'package:gaflutter/domain/repositories/comarca_repository.dart';
 import 'package:gaflutter/screens/counties.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gaflutter/peticions_http.dart';
 
 
 class InfoWidget extends StatelessWidget {
@@ -15,8 +16,9 @@ class InfoWidget extends StatelessWidget {
   final String comarquesName; // Nombre de la provincia
   final String capital;
   final String descrip;
-  final int indicepro;
-  final int indicecomar;
+  final String poblacion;
+  //final int indicepro;
+  //final int indicecomar;
 
   const InfoWidget({
     Key? key,
@@ -24,8 +26,9 @@ class InfoWidget extends StatelessWidget {
     required this.comarquesName,
     required this.capital,
     required this.descrip,
-    required this.indicepro,
-    required this.indicecomar
+    required this.poblacion,
+    //required this.indicepro,
+    //required this.indicecomar
     
   }) : super(key: key);
 
@@ -56,7 +59,7 @@ class InfoWidget extends StatelessWidget {
         ),
         TextButton(
                   onPressed: () {
-                    context.push("/info2/$indicepro/$indicecomar");
+                    context.push("/info2/$comarquesName");
                   },
                   child: const Text("Tiempo"),
                 ),
@@ -82,29 +85,39 @@ class InfoWidget extends StatelessWidget {
 
 class InfoComarca1Screen extends StatelessWidget {
  
-  final String pro;
   final String comar;
 
   const InfoComarca1Screen({
     Key? key,
-    required this.pro,
     required this.comar
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        ),
-        
-      body:InfoWidget(
-        comarquesName: provincies["provincies"][int.parse(pro)]["comarques"][int.parse(comar)]["comarca"],
-        imagePath: provincies["provincies"][int.parse(pro)]["comarques"][int.parse(comar)]["img"],
-        capital: "Capital: " + provincies["provincies"][int.parse(pro)]["comarques"][int.parse(comar)]["capital"],
-        descrip: provincies["provincies"][int.parse(pro)]["comarques"][int.parse(comar)]["desc"],
-        indicepro: int.parse(pro),
-        indicecomar: int.parse(comar),
-      ),
+    return FutureBuilder(
+      future: obtenirInfoComarca(comarca: comar),
+      builder: (BuildContext context, AsyncSnapshot snapshot){
+        print(comar);
+        print(snapshot.data);
+        if (snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(
+              ),
+              
+            body:InfoWidget(
+              comarquesName: snapshot.data["comarca"],
+              imagePath: snapshot.data["img"],
+              capital: snapshot.data["capital"],
+              descrip: snapshot.data["desc"],
+              poblacion: snapshot.data["poblacio"],
+              //indicepro: snapshot.data["latitud"],
+              //indicecomar: snapshot.data["longitud"],
+            ),
+          );
+        }
+        return const CircularProgressIndicator();
+      }
     );
+
   }
 }

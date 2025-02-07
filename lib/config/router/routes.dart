@@ -35,20 +35,18 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       name: 'info1',
-      path: '/info1/:pro/:comar',
+      path: '/info1/:comar',
       builder: (context, state) {
-        final String pro = state.pathParameters['pro']!;
         final String comar = state.pathParameters['comar']!;
-        return InfoComarca1Screen(pro: pro,comar:comar);
+        return InfoComarca1Screen(comar:comar);
       }
     ),
     GoRoute(
       name: 'info2',
-      path: '/info2/:pro/:comar',
+      path: '/info2/:comar',
       builder: (context, state) {
-        final String pro = state.pathParameters['pro']!;
         final String comar = state.pathParameters['comar']!;
-        return InfoComarca2Screen(pro: pro,comar:comar);
+        return InfoComarca2Screen(comar:comar);
       }
     ),
   ],
